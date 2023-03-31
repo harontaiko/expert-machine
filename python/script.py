@@ -5,7 +5,7 @@ import PyPDF2
 import os
 
 # Set up OpenAI API credentials
-openai.api_key = "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"
+openai.api_key = os.environ['API_KEY']
 
 pdf_path = os.path.abspath('python/pdf/pdf1.pdf')
 
@@ -25,7 +25,7 @@ prompt = sys.argv[1]
 # Search for matching answers in the PDF
 pdf_answer = ""
 if prompt in pdf_text:
-    pdf_answer = "Answer found in PDF."
+    pdf_answer = "____"
 
 # Generate an answer from OpenAI if no answer was found in the PDF
 if not pdf_answer:

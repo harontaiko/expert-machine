@@ -35,7 +35,7 @@ function onSubmit(e) {
   
       if (!response.ok) {
         removeSpinner();
-        throw new Error('Engine Error occurred, please try again');
+        throw new Error('engine Error occurred, please try again');
       }
   
       const data = await response.json();
