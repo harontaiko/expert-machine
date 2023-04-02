@@ -32,8 +32,19 @@ if "milk" in prompt.lower():
             n=1,
             stop=None,
             temperature=0.5,
+            logprobs=10,  # Include log robability for each rec token
         )
         recommendation = response.choices[0].text
+
+        # Generate explanation based on log probabilities
+        tokens = response.choices[0].logprobs.tokens
+        token_probs = response.choices[0].logprobs.token_logprobs
+        explanation = ""
+        for i in range(len(tokens)):
+            if i > 0:
+                explanation += " "
+            explanation += tokens[i] + " (" + str(round(token_probs[i], 2)) + ")"
+        recommendation += "\n\nExplanation: " + explanation
     else:
         recommendation = "Please provide more details about your milk-related inquiry."
 
@@ -50,8 +61,19 @@ elif "cows" in prompt.lower():
             n=1,
             stop=None,
             temperature=0.5,
+            logprobs=10, 
         )
         recommendation = response.choices[0].text
+
+        # Generate explanation based on log probabilities
+        tokens = response.choices[0].logprobs.tokens
+        token_probs = response.choices[0].logprobs.token_logprobs
+        explanation = ""
+        for i in range(len(tokens)):
+            if i > 0:
+                explanation += " "
+            explanation += tokens[i] + " (" + str(round(token_probs[i], 2)) + ")"
+        recommendation += "\n\nExplanation: " + explanation
 
 elif "farming" in prompt.lower():
     if "how to start a farm" in prompt.lower():
@@ -64,8 +86,19 @@ elif "farming" in prompt.lower():
             n=1,
             stop=None,
             temperature=0.5,
+            logprobs=10, 
         )
         recommendation = response.choices[0].text
+
+        # Generate explanation based on log probabilities
+        tokens = response.choices[0].logprobs.tokens
+        token_probs = response.choices[0].logprobs.token_logprobs
+        explanation = ""
+        for i in range(len(tokens)):
+            if i > 0:
+                explanation += " "
+            explanation += tokens[i] + " (" + str(round(token_probs[i], 2)) + ")"
+        recommendation += "\n\nExplanation: " + explanation
 
 else:
     response = openai.Completion.create(
@@ -75,8 +108,19 @@ else:
         n=1,
         stop=None,
         temperature=0.5,
+        logprobs=10, 
     )
     recommendation = response.choices[0].text
+
+    # Generate explanation based on log probabilities
+    tokens = response.choices[0].logprobs.tokens
+    token_probs = response.choices[0].logprobs.token_logprobs
+    explanation = ""
+    for i in range(len(tokens)):
+            if i > 0:
+                explanation += " "
+            explanation += tokens[i] + " (" + str(round(token_probs[i], 2)) + ")"
+    recommendation += "\n\nExplanation: " + explanation
 
 # Print the recommendation
 print(recommendation)
